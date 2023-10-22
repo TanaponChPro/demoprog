@@ -1,0 +1,307 @@
+<div class="content-wrapper p-3" style="min-height: 224px;">
+    <section class="content">
+        <div class="container-fluid">
+            <div class="card card-primary">
+                <div class="card-header" style="background-color: slategray;">
+                    <h3 class="card-title" >นำเข้า/ส่งออกข้อมูล และ ตัวเลือกคัดกรองข้อมูล</h3>
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-3">
+                            <!-- <button mat-stroked-button color="primary" [routerLink]="['/inputformbps',0,0]" [state]=0 >
+                                เพิ่มงานใหม่ 
+                            </button> -->
+                            <button type="button" class="btn btn-primary" routerLink="/inputformbps/0/0" [state]=0>
+                                เพิ่มงานใหม่
+                            </button>
+                        </div>
+                        <div class="col-7">
+                            <ul class="list-inline">
+                                <li class="list-inline-item">
+                                    <label>นำเข้าข้อมูล</label>
+
+                                </li>
+                                <li class="list-inline-item">
+                                    <input type="file" class="form-control btn btn-primary" style="width: 100%;"
+                                        (change)="UploadFileExcel($event)"
+                                        accept=".xls, .xlsx" 
+                                    />
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-2">
+                            <label class="col-form-label">x</label>
+                            <button type="button" class="btn btn-primary" (click)="exportToExcel()">Export to Excel</button>
+                            <!-- <button type="button" class="btn btn-primary" (click)="exportExcel()">Export to Excel</button> -->
+                        </div>
+                    </div> <!-- /.row -->    
+                    <hr>
+                    <div class="row">
+                        <div class="col-3">
+                            <!-- <label>เลือกช่วงวันที่</label> -->
+                            <mat-form-field appearance="fill">
+                                <mat-label>เลือกช่วงวันที่</mat-label>
+                                <mat-date-range-input [formGroup]="rangefilter" [rangePicker]="picker">
+                                    <input matStartDate formControlName="strDate" placeholder="Start date">
+                                    <input matEndDate formControlName="endDate" placeholder="End date">
+                                </mat-date-range-input>
+                                <!-- <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint> -->
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-date-range-picker #picker></mat-date-range-picker>
+        
+                                <!-- <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Invalid start date</mat-error>
+                                <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error> -->
+                            </mat-form-field>
+        
+                            <!-- <p>Selected range: {{range.value | json}}</p> -->
+                        </div>
+                        <div class="col-2">
+                            <!-- <label>เลือก BKK or UPC</label> -->
+                            <div [formGroup]="rangefilter">
+                                <select class="form-control" id="bkkupc" formControlName="bkkupc">
+                                    <option [ngValue]="null" disabled>เลือก BKK or UPC</option>
+                                    <option *ngFor="let item of service.bkkupcaray" [ngValue]="item.symbo">{{item.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <!-- <label>เลือกธนาคาร</label> -->
+                            <div [formGroup]="rangefilter">
+                                <select class="form-control" id="Bank" formControlName="Bank">
+                                    <option [ngValue]="null" disabled>เลือกธนาคาร</option>
+                                    <option *ngFor="let item of service.BankList" [ngValue]="item.Symbo">{{item.BankNameThai}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <!-- <label>เลือกประเภทงาน</label> -->
+                            <div [formGroup]="rangefilter">
+                                <select class="form-control" id="jobtype" formControlName="jobtype">
+                                    <option [ngValue]="null" disabled>เลือกประเภทงาน</option>
+                                    <option *ngFor="let item of service.JobTypeList" [ngValue]="item.JobType">{{item.JobType}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <!-- <label>เลือกสถาณะงาน</label> -->
+                            <div [formGroup]="rangefilter">
+                                <select class="form-control" id="jobstatus" formControlName="jobstatus">
+                                    <option [ngValue]="null" disabled>เลือกสถาณะงาน</option>
+                                    <option *ngFor="let item of service.JobStatusList" [ngValue]="item.JobStatus">{{item.JobStatus}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-1">
+                            <button type="button" class="btn btn-primary" (click)="findClick()" *ngIf="isClearFilter">
+                                ค้นหา
+                            </button>
+                            <button type="button" class="btn btn-primary" (click)="clearFilterClick()" *ngIf="!isClearFilter">
+                                clear
+                            </button>
+                        </div>
+                    </div> <!-- /.row -->  
+                </div>
+            </div>
+
+            <div class="row"> <!-- <div class="row" *ngIf="isShown" id="divshow"> -->
+                <div class="col-10">
+                    <table class="table table-striped">
+                        <tbody>
+                            <tr *ngFor="let item of ExcelList">
+                                <td>
+                                    <label>FileName: </label>{{item.ImpFileName}}
+                                    <!-- <td>{{item.UserLogin}}</td> -->
+                                    <label>Tack Date: </label>{{item.ImportDate | date:'dd-MM-yyyy h:mm'}}
+                                    <label>Status: </label>{{item.TrantoJobImport}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label style="color: brown;">ยังไม่ได้ Update ในฐานข้อมูล คลิกปุ่ม Transfer Data
+                                        จะมีผลให้ข้อมูลเดิมเปลี่ยนไป</label>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-2">
+                    <button class="btn btn-success btn-sm" (click)="tranData2JobimportBPS()">
+                        Transfer data to Table
+                    </button>
+                </div>
+            </div> <!-- /.row -->
+            <!-- <hr style="height:2px;border-width:0;color:gray;background-color:gray"> -->
+            <mat-form-field appearance="standard">
+                <mat-label>Filter</mat-label>
+                <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+            </mat-form-field>
+
+            <div class="mat-elevation-z8">
+                <!-- <div class="mat-table-container"> -->
+                <table mat-table [dataSource]="dataSource" matSort multiTemplateDataRows class="mat-elevation-z8">
+                    <!-- seqID Column -->
+                    <ng-container matColumnDef="JobNo">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> JobNumber </th>
+                        <td mat-cell *matCellDef="let row"> {{row.JobNo}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="DefineInsDate">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> วันที่กำหนดติดตั้ง </th>
+                        <td mat-cell *matCellDef="let row"> {{row.DefineInsDate | date:'dd/MM/yyyy'}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="TID">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> TID </th>
+                        <td mat-cell *matCellDef="let row"> {{row.TID}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="MerchantID">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> MerchantID </th>
+                        <td mat-cell *matCellDef="let row"> {{row.MerchantID}} </td>
+                    </ng-container>
+
+
+                    <!-- 'SerialNoEDC',  'SerialNoBase','SerialNoPinpad', 'SerialNoScanner', 'SerialNoHub', 'SerialNoSim', -->
+                    <ng-container matColumnDef="SerialNoEDC">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> SerialNoEDC </th>
+                        <td mat-cell *matCellDef="let row"> {{row.SerialNoEDC}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="JobType">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> JobType </th>
+                        <td mat-cell *matCellDef="let row"> {{row.JobType}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="Province">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Province </th>
+                        <td mat-cell *matCellDef="let row"> {{row.Province}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="Bank">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Bank </th>
+                        <td mat-cell *matCellDef="let row"> {{row.Bank}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="Ticket">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Ticket </th>
+                        <td mat-cell *matCellDef="let row"> {{row.Ticket}} </td>
+                    </ng-container>
+                    <!-- <ng-container matColumnDef="SerialNoBase">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> SerialNoBase </th>
+                        <td mat-cell *matCellDef="let row"> {{row.SerialNoBase}} </td>
+                    </ng-container> -->
+                    <!-- <ng-container matColumnDef="SerialNoPinpad">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> SerialNoPinpad </th>
+                        <td mat-cell *matCellDef="let row"> {{row.SerialNoPinpad}} </td>
+                    </ng-container> -->
+
+                    <!-- 'ReturnNoEDC',  'ReturnNoBase', 'ReturnNoPinpad', 'ReturnNoScanner', 'ReturnNoHub', 'ReturnNoSim', -->
+                    <!-- <ng-container matColumnDef="ReturnNoEDC">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> ReturnNoEDC </th>
+                        <td mat-cell *matCellDef="let row"> {{row.ReturnNoEDC}} </td>
+                    </ng-container> -->
+                    <!-- <ng-container matColumnDef="TechnicName">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> ช่างเทคนิค </th>
+                        <td mat-cell *matCellDef="let row"> {{row.TechnicName}} </td>
+                    </ng-container> -->
+                    <ng-container matColumnDef="JobStatus">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> JobStatus </th>
+                        <td mat-cell *matCellDef="let row"> {{row.JobStatus}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="edit">
+                        <th mat-header-cell *matHeaderCellDef>Detail</th>
+                        <td mat-cell *matCellDef="let row">
+                            <button mat-stroked-button color="primary" [routerLink]="['/inputformbps',row.ID,row.JobNo]" [state]=row >
+                                Edit
+                            </button>  
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="copy">
+                        <th mat-header-cell *matHeaderCellDef>Copy to New Job</th>
+                        <td mat-cell *matCellDef="let row">
+                            <button mat-stroked-button color="primary" [routerLink]="['/inputformbps',row.ID,0]" [state]=row >
+                                Copy
+                            </button>    
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="delete">
+                        <th mat-header-cell *matHeaderCellDef>*</th>
+                        <td mat-cell *matCellDef="let row">
+                            <button mat-stroked-button color="primary" (click)="deleteClick(row)">
+                                Del
+                            </button>    
+                        </td>
+                    </ng-container>
+                    <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+                    <ng-container matColumnDef="expandedDetail0">
+                        <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+                            <div class="example-element-detail" [@detailExpand]="element == expandedElement1 ? 'expanded' : 'collapsed'">
+                                <div class="example-element-description">
+                                    MerchantName:{{element.MerchantName}}, สถานที่ติดตั้ง:{{element.LocationInstall}},
+                                    กำหนดติดตั้งวันที่:{{element.DefineInsDate | date:'dd/MM/yyyy'}}, จังหวัด:{{element.Province}},<br>
+                                    ธนาคาร:{{element.Bank}}, กลุ่มธุรกิจ:{{element.BussinessGroup}},
+                                    ประเภทงาน:{{element.JobType}}, ติดต่อคุณ:{{element.ContactName}},
+                                    เบอร์โทรติดต่อ:{{element.ContactPhone}},<br>
+                                    หมายเหตุในใบงาน:{{element.Remark}},<br>
+                                    หมายเหตุเจ้าหน้าที่:{{element.Remark2}}
+                                </div>
+                            </div>
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let element; columns: displayedColumns;" class="example-element-row"
+                        [class.example-expanded-row]="expandedElement1 === element"
+                        (click)="expandedElement1 = expandedElement1 === element ? null : element">
+                    </tr>
+                    <tr mat-row *matRowDef="let row; columns: ['expandedDetail0']" class="example-detail-row"></tr>
+
+                    <!-- <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr> -->
+
+                    <!-- Row shown when there is no matching data. -->
+                    <tr class="mat-row" *matNoDataRow>
+                        <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                    </tr>
+                </table>
+                <mat-paginator [pageSizeOptions]="[10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+            </div>
+
+            <!-- <div class="row">
+                <table mat-table [dataSource]="dataSource1" multiTemplateDataRows class="mat-elevation-z8">
+                    <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
+                        <th mat-header-cell *matHeaderCellDef> {{column}} </th>
+                        <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
+                    </ng-container>
+
+                    !-- Expanded Content Column - The detail row is made up of this one column that spans across all columns --
+                    <ng-container matColumnDef="expandedDetail">
+                        <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+                            <div class="example-element-detail"
+                                [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                                <div class="example-element-diagram">
+                                    <div class="example-element-position"> {{element.position}} </div>
+                                    <div class="example-element-symbol"> {{element.symbol}} </div>
+                                    <div class="example-element-name"> {{element.name}} </div>
+                                    <div class="example-element-weight"> {{element.weight}} </div>
+                                </div>
+                                <div class="example-element-description">
+                                    {{element.description}}
+                                    <span class="example-element-description-attribution"> -- Wikipedia </span>
+                                </div>
+                            </div>
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+                    <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="example-element-row"
+                        [class.example-expanded-row]="expandedElement === element"
+                        (click)="expandedElement = expandedElement === element ? null : element">
+                    </tr>
+                    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+                </table>
+
+            </div> -->
+
+        </div><!-- /.container-fluid -->
+    </section>
+</div>

@@ -1,0 +1,34 @@
+<!-- <h1>zxing-scanner version scan qrcode only</h1>
+<zxing-scanner (scanSuccess)="onCodeResult($event)"></zxing-scanner>
+
+<p>
+    <small>Scan Result</small>
+    <strong>{{scanResult}}</strong>
+</p> -->
+<!-- <div class="content-wrapper p-3" style="min-height: 224px;">
+    <section class="content">
+        <div class="container-fluid">
+            <zxing-scanner (scanSuccess)="onCodeResult($event)"></zxing-scanner>
+            <p>
+                <small>Scan Result</small>
+                <strong>{{scanResult}}</strong>
+            </p>
+        </div>
+    </section>
+</div> -->
+
+<!-- <h1>zxing-scanner version scan qrcode and barcode</h1> -->
+<div class="content-wrapper p-3" style="min-height: 224px;">
+    <section class="content">
+        <div class="container-fluid">
+            <video #preview [style.object-fit]="previewFitMode">
+                <p>
+                    Your browser does not support this feature, please try to upgrade it.
+                </p>
+                <p>
+                    Seu navegador não suporta este recurso, por favor tente atualizá-lo.
+                </p>
+            </video>
+        </div>
+    </section>
+</div>

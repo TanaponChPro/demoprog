@@ -1,0 +1,77 @@
+<div class="content-wrapper p-0" style="min-height: 224px;">
+    <section class="content">
+        <div class="container-fluid">
+            <h3>Angular 13 Material Datepicker Example - ItSolutionStuff.Com</h3>
+            <!-- <mat-form-field>
+                <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field> -->
+            <mat-form-field class="example-form-field" appearance="fill">
+                <mat-label>First campaign</mat-label>
+                <mat-date-range-input 
+                    [formGroup]="campaignOne" 
+                    [rangePicker]="campaignOnePicker"
+                    [comparisonStart]="campaignOne.value.start" 
+                    [comparisonEnd]="campaignOne.value.end"
+                >
+                    <input matStartDate placeholder="Start date" formControlName="start">
+                    <input matEndDate placeholder="End date" formControlName="end">
+                </mat-date-range-input>
+                <mat-datepicker-toggle matSuffix [for]="campaignOnePicker"></mat-datepicker-toggle>
+                <mat-date-range-picker #campaignOnePicker></mat-date-range-picker>
+            </mat-form-field>
+            <!-- <div class="form-group">
+                <input matInput [matDatepicker]="picker">
+                !-- <mat-hint>DD/MM/YYYY</mat-hint> --
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </div> -->
+        </div>
+
+        <!-- <div class="form-group">
+            <label>วันที่เข้าดำเนินการ</label>
+            <input type="text" [matDatepicker]="operDatepicker" class="form-control" id="OperationDate"
+                formControlName="OperationDate">
+            <mat-datepicker-toggle [for]="operDatepicker"></mat-datepicker-toggle>
+            <mat-datepicker #operDatepicker></mat-datepicker>
+        </div> -->
+        <!-- <div>
+            <button (click)="onClick()">concole</button>
+        </div> -->
+        <form [formGroup]="reactiveForm" (ngSubmit)="onSubmit()" novalidate>
+            <mat-form-field>
+                <input matInput [matDatepicker]="tackDatepicker" 
+                    placeholder="Choose a date" 
+                    class="form-control"
+                    id="OperaDateTime" 
+                    formControlName="OperaDateTime"
+                >
+                <mat-datepicker-toggle matSuffix [for]="tackDatepicker"></mat-datepicker-toggle>
+                <mat-datepicker #tackDatepicker></mat-datepicker>
+            </mat-form-field>
+
+            <!-- <ul class="list-inline">
+                <li class="list-inline-item">
+                    <label>วันที่เวลาเข้าดำเนินการ</label>
+                    <input type="text" [matDatepicker]="tackDatepicker" class="form-control"
+                        id="OperationStrDateTime" formControlName="OperationStrDateTime">
+                </li>
+                <li class="list-inline-item">
+                    <mat-datepicker-toggle [for]="tackDatepicker"></mat-datepicker-toggle>
+                    <mat-datepicker #tackDatepicker></mat-datepicker>
+                </li>
+                <li class="list-inline-item">
+                    <label>วันที่เวลาดำเนินการเสร็จ</label>
+                    <input type="text" [matDatepicker]="endDatepicker" class="form-control"
+                        id="OperationEndDateTime" formControlName="OperationEndDateTime">
+                </li>
+                <li class="list-inline-item">
+                    <mat-datepicker-toggle [for]="endDatepicker"></mat-datepicker-toggle>
+                    <mat-datepicker #endDatepicker></mat-datepicker>
+                </li>
+            </ul> -->
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </section>
+</div>

@@ -1,0 +1,224 @@
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <label class="col-form-label">Job Order</label>
+                <input type="text" class="form-control" [(ngModel)] = "OrderNo"></div>
+            <div class="col-lg-3">
+                <label class="col-form-label">Job Number</label>
+                <input type="text" class="form-control" [(ngModel)] = "JobNo"></div>
+            <div class="col-lg-3">
+                <label class="col-form-label">Administrator</label>
+                <input type="text" class="form-control"  [(ngModel)] = "AdminOpenJob"></div>
+            <div class="col-lg-3">
+                <label class="col-form-label">OpenJob DateTime</label>
+                <!-- <h6 style="color:#4e08d1;">{{myDate | date:'dd-MM-yyyy hh:mm:ss'}}</h6> -->
+                <label class="col-form-label">
+                    <h6 style="color:#4e08d1;">{{OpenDateTime | date:'dd-MM-yyyy hh:mm:ss'}}</h6>
+                </label>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-lg-3">
+                <label class="col-form-label">Customer No.</label>
+                <select class="form-control" [(ngModel)] = "CustomerNo" ngModel (ngModelChange)="SelectCustomer($event)">
+                    <option>--Select--</option>
+                    <option *ngFor="let value of CustomerNoList" [ngValue]="value">{{value.CustomerNo}}</option>
+                </select>
+                <!--
+                <select ngModel (ngModelChange)="mySelectHandler($event)">
+                    <option *ngFor="let value of JobStatusList" [ngValue]="value">{{value.JobStatus}}</option>
+                </select>
+                -->
+            </div>
+            <div class="col-lg-6">
+                <label class=" col-form-label">Customer Name</label>
+                <input type="text" class="form-control" [(ngModel)] = "CustomerName"></div>
+            <div class="col-lg-3">
+                <h6>*</h6>
+                <input type="text" hidden>
+            </div>
+        </div> 
+        <div class="row mt-2">
+            <div class="col-lg-3">
+                <label class="col-form-label">TID</label>
+                <input type="text" class="form-control" [(ngModel)] = "TID"></div>
+            <div class="col-lg-6">
+                <label class="col-form-label">MerchianNo</label>
+                <input type="text" class="form-control" [(ngModel)] = "MerchianNo"></div>
+            <div class="col-lg-3">
+                <label class="col-form-label">Merchian Name</label>
+                <input type="text" class="form-control" [(ngModel)] = "MerchianName"></div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-lg-3">
+                <label class="col-form-label" style="display: inline-block; width: 220px; text-align: right;">Serial No.</label>
+            </div>
+            <div class="col-lg-6">
+                <select class="form-control" [(ngModel)] = "SerialNo">
+                    <option>--Select--</option>
+                    <option *ngFor="let param of SerialNoList">{{param.SerialNo}}</option>
+                </select>
+            </div>
+            <div class="col-lg-3">
+                <input type="text" class="form-control"></div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-lg-2">
+                <label class="col-form-label" style="display: inline-block; width: 150px; text-align: right;">Job Type</label>
+            </div>
+            <div class="col-lg-2">
+                <select class="form-control" [(ngModel)] = "JobType">
+                    <option>--Select--</option>
+                    <option *ngFor="let param of JobTypeList">{{param.JobType}}</option>
+                </select>
+            </div>
+            <div class="col-lg-2">
+                <label class="col-form-label" style="display: inline-block; width: 150px; text-align: right;">Job Status</label>
+            </div>               
+            <div class="col-lg-2">
+                <select class="form-control" [(ngModel)] = "JobStatus" ngModel (ngModelChange)="mySelectHandler($event)">
+                    <option>--Select--</option>
+                    <option *ngFor="let value of JobStatusList" [ngValue]="value">{{value.JobStatus}}</option>
+                </select>
+            </div>
+            <div class="col-lg-2"><label class="col-form-label">{{selectJobStatusRemark}}</label></div>               
+            <div class="col-lg-2">
+                <!----
+                <select [ngModel]="selectedDevice" (ngModelChange)="onChange($event)" name="deviceText">
+                    <option [value]="i" *ngFor="let i of JobStatusList">{{i.JobStatus}}</option>
+                </select>
+                
+                <select ngModel (ngModelChange)="mySelectHandler($event)">
+                    <option *ngFor="let value of JobStatusList" [ngValue]="value">{{value.JobStatus}}</option>
+                </select>
+                -->
+                <!-- Remark --
+                <select (change)="selectChangeHandler($event)">
+                    <option value="Monday">Monday</option>
+                    <option value="Tuesday">Tuesday</option>
+                    <option value="Wednesday">Wednesday</option>
+                    <option value="Thursday">Thursday</option>
+                    <option value="Friday">Friday</option>
+                </select>
+                <p><span>You selected: </span><b>{{selectedDay}}</b></p>
+                -->
+            </div>
+        </div>
+        <!-- Remark -->
+        <div class="row mt-2">
+            <div class="col-lg-2">
+                <label class="col-form-label" style="display: inline-block; width: 150px; text-align: right;">Remark</label></div>
+            <div class="col-lg-10">
+                <input type="text" class="form-control" [(ngModel)] = "OpenJobRemark"></div>       
+        </div>
+        <!-- Save Bottum -->
+        <div class="row mt-2">
+            <div class="col-lg-2">
+                <label class="col-form-label">x</label></div>
+            <div class="col-lg-2">
+                <label class="col-form-label">x</label></div>
+            <div class="col-lg-2">
+                <label class="col-form-label">x</label></div>
+            <div class="col-lg-2">
+                <button (click)="addJob()" class="btn btn-primary">
+                    Add New Job
+                </button>
+            </div>  
+            <div class="col-lg-2">
+                <label class="col-form-label">x</label></div>
+            <div class="col-lg-2">
+                <label class="col-form-label">x</label>
+            </div>          
+        </div>
+    </div>
+</section>
+<!--  
+            <div class="row mt-5">
+            <div class="col-8 bg-info" >
+               
+                <div class="row">
+                    <div class="col-6 bg-warning"><h2>Col-6</h2></div>
+                    <div class="col-6 bg-danger"><input type="text" class="form-control"></div>
+                </div>
+                <div class="row">
+                    <div class="col-6 bg-warning"><h2>Col-6</h2></div>
+                    <div class="col-6 bg-danger"><input type="text" class="form-control"></div>
+                </div>
+            </div>
+            <div class="col-4 bg-dark" ><h2>Col-4</h2></div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-4 bg-dark" ><h2>Col-4</h2></div>
+            <div class="col-8 bg-info" >
+                <h2>Col-8</h2>
+                <div class="row">
+                    <div class="col-6 bg-warning"><h2>Col-6</h2></div>
+                    <div class="col-6 bg-danger"><input type="text" class="form-control"></div>
+                </div>
+                <div class="row">
+                    <div class="col-6 bg-warning"><h2>Col-6</h2></div>
+                    <div class="col-6 bg-danger"><input type="text" class="form-control"></div>
+                </div>
+            </div>
+        </div>
+<div class="form-froup row">
+    <h6>Product Id: {{jid}}</h6>
+    <label class="col-sm-2 col-form-label">Job Number</label>
+    <div class="col-sm-10">
+        <input type="text" class="form-control" >
+    </div>
+
+    <label class="col-sm-2 col-form-label">Order Number</label>
+    <div class="col-sm-10">
+        <input type="text" class="form-control" >
+    </div>
+
+    <label class="col-sm-2 col-form-label">TID</label>
+    <div class="col-sm-10">
+       <select class="form-control" [(ngModel)]="TID">
+           <option>--Select--</option>
+           <option *ngFor="let param of TIDList">{{param.TID}}</option>
+       </select>
+    </div>
+
+    <label class="col-sm-2 col-form-label">MerchianNo</label>
+    <div class="col-sm-10">
+       <select class="form-control" [(ngModel)]="MerchianNo">
+           <option>--Select--</option>
+           <option *ngFor="let param of MerchianNoList">{{param.MerchianNo}}</option>
+       </select>
+    </div>
+
+    <label class="col-sm-2 col-form-label">SerialNo</label>
+    <div class="col-sm-10">
+       <select class="form-control" [(ngModel)]="SerialNo">
+           <option>--Select--</option>
+           <option *ngFor="let param of SerialNoList">{{param.SerialNo}}</option>
+       </select>
+    </div>
+    
+    <label class="col-sm-2 col-form-label">CustomerNo</label>
+    <div class="col-sm-10">
+       <select class="form-control" [(ngModel)]="CustomerNo">
+           <option>--Select--</option>
+           <option *ngFor="let param of CustomerNoList">{{param.CustomerNo}}</option>
+       </select>
+    </div>
+
+    <label class="col-sm-2 col-form-label">Customer Name</label>
+    <div class="col-sm-10">
+        <input type="text" class="form-control" >
+    </div>
+
+    <label class="col-sm-2 col-form-label">Open Job DateTime</label>
+    <div class="col-sm-10">
+        <input type="date"  [(ngModel)]="OpenDateTime">
+    </div>
+
+
+    <button (click)="addJob()" class="btn btn-primary">
+        Add
+    </button>
+</div>
+-->

@@ -1,0 +1,184 @@
+<!-- <div class="row">
+    <div class="col-lg-3">
+        <label class="col-form-label">x</label>
+    </div>
+
+    <div class="col-lg-3">
+        !-- <mat-radio-group aria-label="Select an option" [(ngModel)]="favoriteSeason">
+            <mat-radio-button [value]="1">Into Stock</mat-radio-button>
+            <mat-radio-button [value]="2">Out Stock</mat-radio-button>
+        </mat-radio-group>
+        <div>Your favorite season is: {{favoriteSeason}}</div> --
+    </div>
+
+    <div class="col-lg-3">
+        <input type="file" (change)="uploadFile($event)" class="mt-2" accept=".xls, .xlsx" />
+    </div>
+
+    <div class="col-lg-3">
+    </div>
+</div> -->
+<div class="card card-primary">
+    <div class="card-header" style="background-color: slategray;">
+        <h3 class="card-title">นำเข้า/ส่งออกข้อมูล และ ตัวเลือกคัดกรองข้อมูล</h3>
+        <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                <i class="fas fa-minus"></i>
+            </button>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-3">
+            </div>
+            <div class="col-3">
+                <input class="form-control" type="file" (change)="uploadFileExcel($event)" class="mt-2"
+                    accept=".xls, .xlsx" />
+            </div>
+            <div class="col-3">
+            </div>
+            <div class="col-1">
+            </div>
+            <div class="col-2">
+            </div>
+        </div> <!-- /.row -->
+        <hr>
+        <div class="row">
+            <div class="col-3">
+                <!-- <label>เลือกช่วงวันที่</label> -->
+                <!-- <mat-form-field appearance="fill">
+                    <mat-label>เลือกช่วงวันที่</mat-label>
+                    <mat-date-range-input [formGroup]="rangefilter" [rangePicker]="picker" style="padding: 0.0em;" >
+                        <input matStartDate formControlName="strDate" placeholder="Start date">
+                        <input matEndDate formControlName="endDate" placeholder="End date">
+                    </mat-date-range-input>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-date-range-picker #picker></mat-date-range-picker>
+                </mat-form-field> -->
+            </div>
+            <div class="col-2">
+                <!-- <label>เลือก Vender</label> -->
+                <!-- <div [formGroup]="rangefilter">
+                    <select class="form-control" id="vender" formControlName="vender">
+                        <option [ngValue]="null" disabled>เลือก BPS or E-Mearchant</option>
+                        <option *ngFor="let item of service.VenderList" [ngValue]="item.VenderName">{{item.VenderName}}</option>
+                    </select>
+                </div> -->
+            </div>
+            <div class="col-2">
+                <!-- <label>เลือกธนาคาร</label> -->
+                <!-- <div [formGroup]="rangefilter">
+                    <select class="form-control" id="Bank" formControlName="Bank">
+                        <option [ngValue]="null" disabled>เลือกธนาคาร</option>
+                        <option *ngFor="let item of service.BankList" [ngValue]="item.Symbo">{{item.BankNameThai}}</option>
+                    </select>
+                </div> -->
+            </div>
+            <div class="col-2">
+                <!-- <label>เลือกสต็อก</label> -->
+                <!-- <div [formGroup]="rangefilter">
+                    <select class="form-control" id="stockname" formControlName="stockname">
+                        <option [ngValue]="null" disabled>เลือกสต็อก</option>
+                        <option *ngFor="let item of StockName" [ngValue]="item.name">{{item.name}}</option>
+                    </select>
+                </div> -->
+            </div>
+            <div class="col-2">
+                <!-- <label>เลือกสถาณะเครื่อง</label> -->
+                <!-- <div [formGroup]="rangefilter">
+                    <select class="form-control" id="usestatus" formControlName="usestatus">
+                        <option [ngValue]="null" disabled>เลือกสถาณะเครื่อง</option>
+                        <option *ngFor="let item of service.JobStatusList" [ngValue]="item.JobStatus">{{item.JobStatus}}</option>
+                    </select>
+                </div> -->
+            </div>
+            <div class="col-1">
+                <button type="button" class="btn btn-primary" *ngIf="isClearFilter" (click)="findClick()">
+                    ค้นหา
+                </button>
+                <button type="button" class="btn btn-primary" *ngIf="!isClearFilter" (click)="clearFilterClick()">
+                    clear
+                </button>
+            </div>
+        </div> <!-- /.row -->
+    </div>
+</div>
+
+<!-- <mat-form-field appearance="standard">
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+</mat-form-field> -->
+
+<div class="mat-elevation-z8">
+    <!-- <div></div> -->
+    <!-- <div class="mat-table-container"> -->
+    <table mat-table  matSort class="mat-elevation-z8">
+        <!-- seqID Column -->
+        <!-- <ng-container matColumnDef="seqID" hidden>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+            <td mat-cell *matCellDef="let row"> {{row.seqID}} </td>
+        </ng-container> -->
+
+        <!-- SerialNo Column -->
+        <ng-container matColumnDef="SerialNo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> SerialNo </th>
+            <td mat-cell *matCellDef="let row"> {{row.SerialNo}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Band">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Band </th>
+            <td mat-cell *matCellDef="let row"> {{row.Band}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Model">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Model </th>
+            <td mat-cell *matCellDef="let row"> {{row.Model}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="DeviceType">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> DeviceType </th>
+            <td mat-cell *matCellDef="let row"> {{row.DeviceType}} </td>
+        </ng-container>
+
+        <!-- <ng-container matColumnDef="RegisterDate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> RegisterDate </th>
+            <td mat-cell *matCellDef="let row"> {{row.RegisterDate}} </td>
+        </ng-container> -->
+        <!-- 
+        <ng-container matColumnDef="ExpriedDate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> ExpriedDate </th>
+            <td mat-cell *matCellDef="let row"> {{row.ExpriedDate}} </td>
+        </ng-container> -->
+
+        <ng-container matColumnDef="UseStatus">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> UseStatus </th>
+            <td mat-cell *matCellDef="let row"> {{row.UseStatus}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Lot">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Lot </th>
+            <td mat-cell *matCellDef="let row"> {{row.Lot}} </td>
+        </ng-container>
+
+        <!-- Activity Column -->
+        <ng-container matColumnDef="StockName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> StockName </th>
+            <td mat-cell *matCellDef="let row"> {{row.StockName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="WhereIsLast">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> WhereIsLast </th>
+            <td mat-cell *matCellDef="let row"> {{row.WhereIsLast}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let element; columns: displayedColumns;" class="example-element-row"></tr>
+        <!-- <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr> -->
+
+        <!-- Row shown when there is no matching data. -->
+        <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+        </tr>
+    </table>
+    <!-- <mat-paginator [pageSizeOptions]="[10, 25, 100]" aria-label="Select page of users"></mat-paginator> -->
+</div>

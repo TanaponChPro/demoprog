@@ -1,0 +1,133 @@
+<div class="content-wrapper p-3" style="min-height: 224px;">
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-3">
+                    <label class="col-form-label">x</label>
+                </div>
+
+                <div class="col-lg-3">
+                    <!-- <mat-radio-group aria-label="Select an option" [(ngModel)]="favoriteSeason">
+                        <mat-radio-button [value]="1">Into Stock</mat-radio-button>
+                        <mat-radio-button [value]="2">Out Stock</mat-radio-button>
+                    </mat-radio-group>
+                    <div>Your favorite season is: {{favoriteSeason}}</div> -->
+                </div>
+
+                <div class="col-lg-3">
+                    <!-- <input type="file" (change)="uploadFile($event)" class="mt-2" accept=".xls, .xlsx" /> -->
+                    <input type="file" (change)="UploadFileExcel($event)" class="mt-2" accept=".xls, .xlsx" />
+                </div>
+
+                <div class="col-lg-3">
+                    <!-- <button type="button" class="btn btn-light mr-1" (click)="deleteClick(dataItem)">
+                    </button> -->
+                </div>
+            </div> <!-- row -->
+
+            <mat-form-field appearance="standard">
+                <mat-label>Filter</mat-label>
+                <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+            </mat-form-field>
+
+            <div class="mat-elevation-z8">
+                <!-- <div></div> -->
+                <!-- <div class="mat-table-container"> -->
+                <table mat-table [dataSource]="dataSource" matSort>
+                    <!-- seqID Column -->
+                    <ng-container matColumnDef="JobNumber">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> JobNumber </th>
+                        <td mat-cell *matCellDef="let row"> {{row.JobNumber}} </td>
+                    </ng-container>
+
+                    <!-- TID Column -->
+                    <ng-container matColumnDef="TID">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> TID </th>
+                        <td mat-cell *matCellDef="let row"> {{row.TID}} </td>
+                    </ng-container>
+
+                    <!-- Bank, Contact, Phone Column -->
+                    <!-- <ng-container matColumnDef="Bank">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Bank </th>
+                        <td mat-cell *matCellDef="let row"> {{row.Bank}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="Contact">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Contact </th>
+                        <td mat-cell *matCellDef="let row"> {{row.Contact}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="PhoneNo">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> PhoneNo </th>
+                        <td mat-cell *matCellDef="let row"> {{row.PhoneNo}} </td>
+                    </ng-container> -->
+
+                    <!-- 'SerialNoEDC',  'SerialNoBase','SerialNoPinpad', 'SerialNoScanner', 'SerialNoHub', 'SerialNoSim', -->
+                    <ng-container matColumnDef="SerialNoEDC">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> SerialNoEDC </th>
+                        <td mat-cell *matCellDef="let row"> {{row.SerialNoEDC}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="SerialNoBase">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> SerialNoBase </th>
+                        <td mat-cell *matCellDef="let row"> {{row.SerialNoBase}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="SerialNoPinpad">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> SerialNoPinpad </th>
+                        <td mat-cell *matCellDef="let row"> {{row.SerialNoPinpad}} </td>
+                    </ng-container>
+
+                    <!-- 'ReturnNoEDC',  'ReturnNoBase', 'ReturnNoPinpad', 'ReturnNoScanner', 'ReturnNoHub', 'ReturnNoSim', -->
+                    <ng-container matColumnDef="ReturnNoEDC">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> ReturnNoEDC </th>
+                        <td mat-cell *matCellDef="let row"> {{row.ReturnNoEDC}} </td>
+                    </ng-container>
+                    <!-- <ng-container matColumnDef="ReturnNoBase">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> ReturnNoBase </th>
+                        <td mat-cell *matCellDef="let row"> {{row.ReturnNoBase}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="ReturnNoPinpad">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> ReturnNoPinpad </th>
+                        <td mat-cell *matCellDef="let row"> {{row.ReturnNoPinpad}} </td>
+                    </ng-container> -->
+
+                    <!-- 'TackDateTime', 'AdminName', 'TechnicName' LastStatus -->
+                    <!-- <ng-container matColumnDef="TackDate">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> TackDate </th>
+                        <td mat-cell *matCellDef="let row"> {{row.TackDate}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="AdminName">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> AdminName </th>
+                        <td mat-cell *matCellDef="let row"> {{row.AdminName}} </td>
+                    </ng-container> -->
+                    <ng-container matColumnDef="TechnicName">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> ช่างเทคนิค </th>
+                        <td mat-cell *matCellDef="let row"> {{row.TechnicName}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="LastStatus">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> สถาณะล่าสุด </th>
+                        <td mat-cell *matCellDef="let row"> {{row.LastStatus}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="actions">
+                        <!-- <mat-header-cell *matHeaderCellDef>*</mat-header-cell>
+                        <mat-cell *matCellDef="let row">
+                            <button mat-raised-button color="primary">Detail</button>
+                        </mat-cell> -->
+                        <th mat-header-cell *matHeaderCellDef>*</th>
+                        <td mat-cell *matCellDef="let row">
+                            <button mat-stroked-button color="primary">Detail</button>
+                            <!-- <a mat-raised-button href="https://www.google.com/" target="_blank">Detail</a> -->
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                    <!-- Row shown when there is no matching data. -->
+                    <tr class="mat-row" *matNoDataRow>
+                        <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                    </tr>
+                </table>
+                <mat-paginator [pageSizeOptions]="[10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+</div>

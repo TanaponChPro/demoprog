@@ -1,0 +1,26 @@
+<div class="content-wrapper p-3" style="min-height: 224px;">
+  <section class="content">
+    <div class="container-fluid">
+      <form [formGroup]="loginForm" (ngSubmit)="login()" novalidate>
+        <mat-form-field>
+          <mat-label>Email</mat-label>
+          <input matInput placeholder="Ex. Jon" formControlName="email" />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Password</mat-label>
+          <input
+            matInput
+            type="password"
+            placeholder="Ex. Jon"
+            formControlName="password"
+          />
+        </mat-form-field>
+        <button type="submit" color="accent" [disabled]="!loginForm.valid" mat-raised-button >
+          <span>Log in</span>
+        </button>
+      </form>
+    </div>
+  </section>
+</div>
+
+  

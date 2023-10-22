@@ -1,0 +1,44 @@
+<div class="form-froup row">
+    <label class="col-sm-2 col-form-label">SerialNo</label>
+    <div class="col-lg-2">
+        <input type="text" class="form-control" [(ngModel)]="SerialNo" placeholder="SerialNo">
+    </div>
+
+    <label class="col-sm-2 col-form-label">Band</label>
+    <div class="col-lg-2">
+        <select class="form-control" [(ngModel)]="Band">
+            <option>--Select--</option>
+            <option *ngFor="let param of BandList">{{param.BandName}}</option>
+        </select>
+    </div>
+
+    <label class="col-sm-2 col-form-label">Model</label>
+    <div class="col-lg-2">
+        <select class="form-control" [(ngModel)]="Model">
+            <option>--Select--</option>
+            <option *ngFor="let param of ModelList">{{param.ModelName}}</option>
+        </select>
+    </div>
+
+    <label class="col-sm-2 col-form-label">Device Type</label>
+    <div class="col-lg-2">
+        <select class="form-control" [(ngModel)]="DeviceType">
+            <option>--Select--</option>
+            <option *ngFor="let param of DeviceTypeList">{{param.DeviTypeName}}</option>
+        </select>
+    </div>
+
+    <label class="col-sm-2 col-form-label">Register Date</label>
+    <div class="col-lg-2">
+        <input type="date" [(ngModel)]="RegisterDate">
+    </div>
+
+</div>
+<div class="row mt-2">
+    <button (click)="addDevice()" *ngIf="dev.DeviceID==0" class="btn btn-primary">
+        Add
+    </button>
+    <button (click)="updateDevice()" *ngIf="dev.DeviceID!=0" class="btn btn-primary">
+        Update
+    </button>
+</div>

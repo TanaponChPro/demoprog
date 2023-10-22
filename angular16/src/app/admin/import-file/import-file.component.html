@@ -1,0 +1,106 @@
+<!--
+<div class="ml-3 bd-highlight" style="width: 40%;">
+    <input type="file" (change)="uploadFile($event)" class="mt-2" />
+</div>
+-->
+<!-- Import file type 1 
+<div class="d-flex flex-row bd-highlight mb-3">
+    <div class="form-froup row" style="width: 50%;">
+        <input type="file" style="display: none" #fileInput accept="*/*" (change)="onChangeFileInput()" />
+        <button mat-raised-button color="primary" class="file-select-button" (click)="onClickFileInputButton()">
+            Choose File
+        </button>
+        <p class="file-name" *ngIf="!file; else fileName">selected file</p>
+        <ng-template #fileName>
+            <p class="file-name">{{ file?.name }}</p>
+        </ng-template>
+    </div>
+</div>
+-->
+
+<!-- Modal -->
+<div class="modal fade" id="ImportJobModal" tabindex="-1" role="dialog" aria-labelledby="ImportJobModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ImportJobModalLabel">{{ModalTitle}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeClick()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">        
+                <!-- <app-import-file-detail></app-import-file-detail> -->
+                <app-import-file-detail [impFile]="impFile" *ngIf="ActivateAddEditEmpComp">
+                </app-import-file-detail>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-lg-3">
+        <label class="col-form-label">x</label>
+    </div>
+    <div class="col-lg-6">
+        <label class="col-form-label">Import File</label>
+        <input type="file" (change)="uploadFile($event)" class="mt-2" />
+    </div>
+    <div class="col-lg-3">
+        <button type="button" class="btn btn-primary float-right m-2" (click)="refreshImportJobList()">
+            Reface Data
+        </button>
+    </div>
+</div>
+
+<div class="row mt-2">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>seq</th>
+                <th>Date OUt</th>
+                <th>Branch</th>
+                <th>Officer</th>
+                <th>Job Number</th>
+                <th>Merchan ID</th>
+                <th>Merchan Name</th>
+                <th>
+                    <!-- <input type="checkbox" [checked]="isAllCheckBoxChecked()" (change)="checkAllCheckBox($event)"> -->
+                    Approve
+                </th>
+                <th>Detail</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!--
+            <tr *ngFor="let dataItem of ImpotJobList; ">
+            -->
+            <tr *ngFor="let dataItem of ImpotJobList; let i=index; let odd = odd" [ngClass]="odd ? 'odd_col' : 'even_col'">
+                <td hidden >{{dataItem.id}}</td>
+                <td>{{dataItem.A}}</td>
+                <td>{{dataItem.B}}</td>
+                <td>{{dataItem.C}}</td>
+                <td>{{dataItem.F}}</td>
+                <td>{{dataItem.G}}</td>
+                <td>{{dataItem.H}}</td>
+                <td>{{dataItem.I}}</td>
+                <td>
+                    <!-- <input type="checkbox" value="{{dataItem.id}}" [(ngModel)]="ImpotJobList[i].checked"> -->
+                    <!--
+                    <button type="button" class="btn btn-light mr-1" (click)="ApprovClick(dataItem)">
+                        Approve Import Job
+                    </button>
+                    -->
+                </td>
+                <td>
+                    <button type="button" class="btn btn-light mr-1" data-toggle="modal" data-target="#ImportJobModal"
+                        (click)="ShowDetailClick(dataItem)" data-backdrop="static" data-keyboard="false">
+                        Detail
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

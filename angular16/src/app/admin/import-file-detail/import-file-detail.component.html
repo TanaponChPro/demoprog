@@ -1,0 +1,91 @@
+<div class="row">
+    <div class="col-lg-3">
+        <label class="col-form-label">Job Order</label>
+        <input type="text" class="form-control" [(ngModel)]="OrderNo">
+    </div>
+    <div class="col-lg-3">
+        <label class="col-form-label">Job Number</label>
+        <input type="text" class="form-control" [(ngModel)]="JobNo">
+    </div>
+    <div class="col-lg-3">
+        <label class="col-form-label">Administrator</label>
+        <input type="text" class="form-control" [(ngModel)]="AdminOpenJob">
+    </div>
+    <div class="col-lg-3">
+        <label class="col-form-label">OpenJob DateTime</label>
+        <!-- <h6 style="color:#4e08d1;">{{myDate | date:'dd-MM-yyyy hh:mm:ss'}}</h6> -->
+        <label class="col-form-label">
+            <h6 style="color:#4e08d1;">{{OpenDateTime | date:'dd-MM-yyyy hh:mm:ss'}}</h6>
+        </label>
+    </div>
+</div>
+
+<div class="row mt-2">
+    <div class="col-lg-3">
+        <label class="col-form-label">Customer No.</label>
+        <input type="text" class="form-control" [(ngModel)]="CustomerNo">
+    </div>
+    <div class="col-lg-6">
+        <label class=" col-form-label">Customer Name</label>
+        <input type="text" class="form-control" [(ngModel)]="CustomerName">
+    </div>
+    <div class="col-lg-3">
+        <h6>*</h6>
+        <input type="text" hidden>
+    </div>
+</div>
+
+<div class="row mt-2">
+    <div class="col-lg-3">
+        <label class="col-form-label">TID</label>
+        <input type="text" class="form-control" [(ngModel)]="TID">
+    </div>
+    <div class="col-lg-6">
+        <label class="col-form-label">MerchianNo</label>
+        <input type="text" class="form-control" [(ngModel)]="MerchianNo">
+    </div>
+    <div class="col-lg-3">
+        <label class="col-form-label">Merchian Name</label>
+        <input type="text" class="form-control" [(ngModel)]="MerchianName">
+    </div>
+</div>
+
+<div class="row mt-2">
+    <div class="col-lg-3">
+        <label class="col-form-label" style="display: inline-block; width: 220px; text-align: right;">Serial No.</label>
+    </div>
+    <div class="col-lg-6">
+        <input type="text" class="form-control" [(ngModel)]="SerialNo">
+    </div>
+    <div class="col-lg-3">
+        <input type="text" class="form-control">
+    </div>
+</div>
+
+<div class="row mt-2">
+    <div class="col-lg-2">
+        <label class="col-form-label" style="display: inline-block; width: 150px; text-align: right;">Job Type</label>
+    </div>
+    <div class="col-lg-2">
+        <input type="text" class="form-control" [(ngModel)]="JobType">
+    </div>
+    <div class="col-lg-2">
+        <label class="col-form-label" style="display: inline-block; width: 150px; text-align: right;">Job Status</label>
+    </div>
+    <div class="col-lg-2">
+        <input type="text" class="form-control" [(ngModel)]="JobType">
+    </div>
+    <div class="col-lg-2">
+    </div>
+    <div class="col-lg-2">
+    </div>
+</div>
+<!-- Remark -->
+<div class="row mt-2">
+    <div class="col-lg-2">
+        <label class="col-form-label" style="display: inline-block; width: 150px; text-align: right;">Remark</label>
+    </div>
+    <div class="col-lg-10">
+        <input type="text" class="form-control" [(ngModel)]="OpenJobRemark">
+    </div>
+</div>
